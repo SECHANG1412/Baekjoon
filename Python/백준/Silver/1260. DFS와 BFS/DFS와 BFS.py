@@ -1,45 +1,52 @@
 import sys
 from collections import deque
 
-# 스택
+# 스택-후입선출
 def dfs(start):
-    stack = [start]          
-    visit1 = [0] * (N + 1)  
+    stack = [start]
+    visited = [False] * (N + 1)
+
     while stack:
-        v = stack.pop()      
-        if not visit1[v]:
-            visit1[v] = 1
-            print(v, end=" ")
+        node = stack.pop()
+
+        if not visited[node]:
+            visited[node] = True
+
+            print(node, end=" ")
+            
             for i in range(N, 0, -1):
-                if not visit1[i] and graph[v][i] == 1:
+                if graph[node][i] and not visited[i]:
                     stack.append(i)
 
+# 큐-선입선출
+def bfs(start):
+    queue = deque([start])
+    visited = [False] * (N + 1)
 
-# 큐
-def bfs(V):
-  queue = deque()
-  queue.append(V)       
-  visit2[V] = 1
+    while queue:
+        node = queue.popleft()
 
-  while queue:
-    V = queue.popleft()
-    print(V, end = " ")
-    for i in range(1, N + 1):
-      if visit2[i] == 0 and graph[V][i] == 1:
-        queue.append(i)
-        visit2[i] = 1
+        if not visited[node]:
+            visited[node] = True
 
-##############################################################
+            print(node, end=" ")
+            
+            for i in range(1, N + 1):
+                if graph[node][i] and not visited[i]:
+                    queue.append(i)
+
+#########################################################################
 
 N, M, V = map(int, sys.stdin.readline().split())
 
 graph = [[0] * (N + 1) for _ in range(N + 1)] 
-visit1 = [0] * (N + 1)
-visit2 = [0] * (N + 1)
+visit_1 = [0] * (N + 1)
+visit_2 = [0] * (N + 1)
 
 for _ in range(M):
   a, b = map(int, sys.stdin.readline().split())
-  graph[a][b] = graph[b][a] = 1
+
+  graph[a][b] = graph[b][a] = 1 # 양방향
 
 dfs(V)
 print()
