@@ -1,6 +1,5 @@
 import sys
 sys.setrecursionlimit(10**6)
-from functools import lru_cache
 input = sys.stdin.readline
 
 def moo(n,k):
@@ -8,6 +7,7 @@ def moo(n,k):
     #########
     if k == 0:
         return "moo"[n - 1]
+    #########
 
     left=get_len(k-1)
     mid=k+3
@@ -24,7 +24,6 @@ def moo(n,k):
     else:
         return moo(n-left-mid, k-1)
     
-@lru_cache(maxsize=None)
 def get_len(k):
     if k==0:
         return 3
