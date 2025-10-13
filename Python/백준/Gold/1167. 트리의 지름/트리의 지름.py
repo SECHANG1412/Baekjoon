@@ -31,8 +31,8 @@ for _ in range(V):
         graph[node].append((neighbor, weight))
         idx += 2
 
-node_a, _ = bfs(1)
+node_a, dist_a = bfs(1)
 
-_, diameter = bfs(node_a)
+node_b, diameter = bfs(node_a)
 
 print(diameter)
